@@ -23,6 +23,8 @@ activity_data <- read_csv("activity.csv", col_types = cols(date = col_date(forma
 ```{r}
 total_steps_by_date <- aggregate(steps ~ date,activity_data, sum, na.rm = TRUE)
 mean_steps_by_date <- aggregate(steps ~ date,activity_data, mean, na.rm = TRUE)
+mean(total_steps_by_date$steps)
+median(total_steps_by_date$steps)
 ```
 
 ```{r, echo=FALSE}
