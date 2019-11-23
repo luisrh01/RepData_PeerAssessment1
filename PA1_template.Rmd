@@ -30,6 +30,10 @@ ggplot(data = total_steps_by_date, aes(x = date, y = steps)) + geom_point(color=
   geom_line(color= 'red') +
   ggtitle('Total Steps by Day')
 
+## Plot of histogram of the total number of steps taken each day
+hist(as.ts(total_steps_by_date$steps), xlab="Total number of steps", ylab="Number of Days", breaks = nrow(total_steps_by_date),
+     main="Histogram of Total Number of Steps by Number of Days", col='skyblue3')
+
 # ggplot() + geom_violin(data = total_steps_by_date, aes(x = date, y = steps), color= 'red') +
 #   ggtitle('Violin Plot of Total Steps by Day') + 
 #   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title = element_blank())
@@ -77,6 +81,13 @@ ggplot() + geom_line(data = activity_data_imputed, aes(x = interval, y = steps),
   labs(x = "interval", y = "Number of steps", title = "Average Daily Activity Pattern (with imputed data)")
 ```
 
+```{r, echo=FALSE}
+## Plot of histogram of the total number of steps taken each day after imputing
+total_steps_by_date_imputed <- aggregate(steps ~ date,activity_data_imputed, sum, na.rm = TRUE)
+
+hist(as.ts(total_steps_by_date_imputed$steps), xlab="Total number of steps", ylab="Number of Days", breaks = nrow(total_steps_by_date),
+     main="Histogram of Total Number of Steps by Number of Days (imputed)", col='skyblue3')
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -89,6 +100,8 @@ activity_data_imputed$weekend <- factor((weekdays(activity_data_imputed$date) %i
 weekdays <- subset(activity_data_imputed, weekend == FALSE)
 weekends <- subset(activity_data_imputed, weekend == TRUE)
 ```
+
+
 
 ```{r, echo=FALSE}
 # plot weekdays activity pattern
@@ -106,3 +119,4 @@ ggplot() + geom_line(data = average_weekend_activity_pattern, aes(x = interval, 
   labs(x = "interval", y = "Number of steps", title = "Average Weekend Activity Pattern")
 
 ```
+
